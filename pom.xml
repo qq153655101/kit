@@ -6,7 +6,11 @@
     <groupId>com.peng</groupId>
     <artifactId>kit</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>peng-util</module>
+        <module>peng-log</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>roc</name>
     <description>Demo project for Spring Boot</description>
