@@ -20,6 +20,7 @@ import java.util.function.Function;
 public class AsyBarrierLauncher<T,R> {
     private Executor executor;
     private long timeOut;
+    private boolean allFinished = true;
     private CyclicBarrier cyclicBarrier;
     private Consumer<R> mergeConsumer;
     private Function<T,R> resultFunction;
@@ -86,6 +87,7 @@ public class AsyBarrierLauncher<T,R> {
                     consumer.accept(original);
                     cyclicBarrier.await(timeOut,TimeUnit.SECONDS);
                 }catch (Exception e){
+                    allFinished = false;
                     log.error("AsyBarrierLauncher execute runnable error :{}",e);
                 }
             });
@@ -97,6 +99,7 @@ public class AsyBarrierLauncher<T,R> {
         try{
             cyclicBarrier.await(timeOut, TimeUnit.SECONDS);
         }catch (Exception e){
+            allFinished = false;
             log.error("AsyBarrierLauncher execute await for main thread error :{}",e);
         }
     }
@@ -106,8 +109,16 @@ public class AsyBarrierLauncher<T,R> {
         return this;
     }
 
+    public void clear(){
+        consumers.clear();
+    }
+
     public void stopWatchLog(StopWatch stopWatch){
         log.info(stopWatch.prettyPrint());
+    }
+
+    public boolean isAllFinished() {
+        return allFinished;
     }
 
     public T getOriginal() {
