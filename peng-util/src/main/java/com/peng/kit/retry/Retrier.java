@@ -1,10 +1,11 @@
-package com.peng.kit.common;
+package com.peng.kit.retry;
 
+import com.peng.kit.common.BeanUtils;
+import com.peng.kit.common.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -57,7 +58,7 @@ public class Retrier<T> {
                 s->{
                     if (s == null)
                         return false;
-                    Map<String,Object> map = BeanUtils.convertClassToMap(s);
+                    Map<String,Object> map = BeanUtils.convertObjectToMap(s);
                     return !StringUtils.isEmpty(map) && map.size()>0 &&(StringUtils.isEmpty(notNullField) || !StringUtils.isEmpty(map.get(notNullField)));
                 }
         );
