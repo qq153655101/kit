@@ -25,7 +25,7 @@ public class AsyLatchLauncher<T> {
 
     public void execute(){
         if (consumers.size()==0)
-            throw new RuntimeException();
+            throw new RuntimeException("AsyLatchLauncher ： there is no runnable job !");
         CountDownLatch latch = new CountDownLatch(consumers.size());
         for (Consumer<T> consumer : consumers){
             executor.execute(()->{
