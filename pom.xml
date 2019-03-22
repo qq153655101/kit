@@ -12,7 +12,7 @@
     </modules>
     <packaging>pom</packaging>
 
-    <name>roc</name>
+    <name>peng</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
