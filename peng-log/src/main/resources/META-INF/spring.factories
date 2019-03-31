@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\com.peng.log.LogAutoConfiguration
+org.springframework.boot.env.EnvironmentPostProcessor=\com.peng.log.LogEnvSetter

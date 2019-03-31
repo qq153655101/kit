@@ -10,13 +10,16 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>peng-util</artifactId>
+    <artifactId>peng-common</artifactId>
     <version>0.0.1-RELEASE</version>
     <packaging>jar</packaging>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.peng</groupId>
+            <artifactId>peng-util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
-
 
 </project>
