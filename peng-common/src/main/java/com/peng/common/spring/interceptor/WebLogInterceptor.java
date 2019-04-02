@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * created by guoqingpeng on 2019/3/31
  */
 @Slf4j
-public class WebHeaderInterceptor extends HandlerInterceptorAdapter {
+public class WebLogInterceptor extends HandlerInterceptorAdapter {
 
     private final String EXECUT_TIME_KEY="execute_time";
 

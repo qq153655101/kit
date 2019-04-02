@@ -1,10 +1,9 @@
 package com.peng.log;
 
-import com.peng.common.spring.interceptor.WebHeaderInterceptor;
+import com.peng.common.spring.interceptor.WebLogInterceptor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.cloud.sleuth.instrument.web.TraceWebAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -19,7 +18,7 @@ public class LogAutoConfiguration {
     public static class WebLogMvcConfigurer implements WebMvcConfigurer{
         @Override
         public void addInterceptors(InterceptorRegistry registration){
-            registration.addInterceptor(new WebHeaderInterceptor());
+            registration.addInterceptor(new WebLogInterceptor());
         }
     }
 }

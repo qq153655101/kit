@@ -74,7 +74,7 @@ public class SpringUtils implements ApplicationContextAware {
         Map<String,Object> source;
         if(mapPropertySource == null){
             source = new HashMap<>();
-            propertySources.addLast(new MapPropertySource("peng.propertie",source));
+            propertySources.addLast(new MapPropertySource("peng.properties",source));
         }else{
             source =  mapPropertySource.getSource();
         }

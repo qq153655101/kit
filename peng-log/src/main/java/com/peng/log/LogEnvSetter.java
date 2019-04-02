@@ -8,8 +8,6 @@ import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.ConfigurableEnvironment;
 
-import javax.swing.*;
-
 /**
  * created by guoqingpeng on 2019/3/31
  */
@@ -19,41 +17,42 @@ public class LogEnvSetter extends AbstractPengEnvPostProcessor {
     protected void commonProfiles(ConfigurableEnvironment environment, SpringApplication application){}
     @Override
     protected void onLocalEnv(ConfigurableEnvironment environment, SpringApplication application){
-        setLogProperties(environment,application,"logback-test.xml");
+        setLogProperties(environment,application, "logback-peng.xml");
     }
     @Override
     protected void onTestEnv(ConfigurableEnvironment environment, SpringApplication application){
-        setLogProperties(environment,application,"logback-test.xml");
+        setLogProperties(environment,application, "logback-peng.xml");
     }
 
     @Override
     protected void onPrdEnv(ConfigurableEnvironment environment, SpringApplication application){
-        setLogProperties(environment,application,"logback-prd.xml");
+        setLogProperties(environment,application, "logback-peng.xml");
     }
 
     private void setLogProperties(ConfigurableEnvironment environment, SpringApplication application,String logbackConfigPath){
         Binder binder = Binder.get(environment);
-        BindResult<LogProperties> bindLogProperty = binder.bind("log", Bindable.of(LogProperties.class));
+        BindResult<LogProperties> bindLogProperty = binder.bind("peng.properties.log", Bindable.of(LogProperties.class));
         LogProperties logProperties;
         if (bindLogProperty.isBound())
             logProperties = bindLogProperty.get();
-        else
+        else{
             logProperties = new LogProperties();
+            SpringUtils.setEnvproperty(environment,"log.logPattern",logProperties.getLogPattern());
+            SpringUtils.setEnvproperty(environment,"log.holdTime",logProperties.getHoldTime());
+            SpringUtils.setEnvproperty(environment,"log.fileSize",logProperties.getFileSize());
+            SpringUtils.setEnvproperty(environment,"log.totalSizeCap",logProperties.getTotalSizeCap());
+            SpringUtils.setEnvproperty(environment,"log.errorFileSize",logProperties.getErrorFileSize());
+            SpringUtils.setEnvproperty(environment,"log.errorHoldTime",logProperties.getErrorHoldTime());
+            SpringUtils.setEnvproperty(environment,"log.errorTotalSizeCap",logProperties.getErrorTotalSizeCap());
+            SpringUtils.setEnvproperty(environment,"log.queueSize",logProperties.getQueueSize());
+            SpringUtils.setEnvproperty(environment,"log.showSql",logProperties.isShowSql());
+        }
         String fileName = logProperties.getLogName()==null?environment.getProperty("spring.application.name"):logProperties.getLogName();
-        String rootLogDir = logProperties.getLogPath()==null?"/home/log/":(logProperties.getLogPath()+"/");
-        String filePattern = rootLogDir+fileName+"info/info"+"-%d{yyyy-MM-dd}-%i.log";
-        String errorFilePattern = rootLogDir+fileName+"error/error"+"-%d{yyyy-MM-dd}-%i.log";
-        System.setProperty("DAO_PATH",logProperties.getDaoPath());
-        System.setProperty("FILE_SIZE",logProperties.getFileSize());
-        System.setProperty("MAX_HISTORY_DAY",logProperties.getHoldTime());
-        System.setProperty("TOTAL_CAP_SIZE",logProperties.getTotalSizeCap());
-        System.setProperty("ERROR_FILE_SIZE",logProperties.getErrorFileSize());
-        System.setProperty("ERROR_MAX_HISTORY_DAY",logProperties.getErrorHoldTime());
-        System.setProperty("ERROR_TOTAL_CAP_SIZE",logProperties.getErrorTotalSizeCap());
-        System.setProperty("QUEUE_SIEZ",logProperties.getQueueSize());
-        System.setProperty("OUTPUT_STYLE",logProperties.getLogPattern());
-        System.setProperty("FILE_PATTERN",filePattern);
-        System.setProperty("ERROR_FILE_PATTERN",errorFilePattern);
+        String rootLogDir = logProperties.getLogPath()==null?"/myspace/log/":(logProperties.getLogPath()+"/");
+        String filePattern = rootLogDir+fileName+"/info/info"+"-%d{yyyy-MM-dd}-%i.log";
+        String errorFilePattern = rootLogDir+fileName+"/error/error"+"-%d{yyyy-MM-dd}-%i.log";
+        SpringUtils.setEnvproperty(environment,"log.filePattern",filePattern);
+        SpringUtils.setEnvproperty(environment,"log.errorFilePattern",errorFilePattern);
         SpringUtils.setEnvproperty(environment,"logging.config","classpath:"+logbackConfigPath);
     }
 }

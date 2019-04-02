@@ -5,27 +5,37 @@
         scan:热加载,scanPreiod热加载扫描时间，debug：logback打印内部日志
         AsyncAppender：异步打印
     -->
+    <springProperty scope="context" name="OUTPUT_STYLE" source="log.logPattern"/>
+    <springProperty scope="context" name="FILE_PATTERN" source="log.filePattern"/>
+    <springProperty scope="context" name="MAX_HISTORY_DAY" source="log.holdTime"/>
+    <springProperty scope="context" name="FILE_SIZE" source="log.fileSize"/>
+    <springProperty scope="context" name="TOTAL_CAP_SIZE" source="log.totalSizeCap"/>
+    <springProperty scope="context" name="ERROR_FILE_PATTERN" source="log.errorFilePattern"/>
+    <springProperty scope="context" name="ERROR_FILE_SIZE" source="log.errorFileSize"/>
+    <springProperty scope="context" name="ERROR_MAX_HISTORY_DAY" source="log.errorHoldTime"/>
+    <springProperty scope="context" name="ERROR_TOTAL_CAP_SIZE" source="log.errorTotalSizeCap"/>
+    <springProperty scope="context" name="QUEUE_SIEZ" source="log.queueSize"/>
+    <springProperty scope="context" name="SHOW_SQL" source="log.showSql"/>
 
-    <include resource="logback-dao-sql.xml" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <withJansi>true</withJansi>
         <encoder>
-            <pattern>${sys:OUTPUT_STYLE}</pattern>
+            <pattern>${OUTPUT_STYLE}</pattern>
         </encoder>
     </appender>
 
 
     <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${sys:FILE_PATTERN}</fileNamePattern>
-            <maxFileSize>${sys:FILE_SIZE}</maxFileSize>
-            <maxHistory>${sys:MAX_HISTORY_DAY}</maxHistory>
-            <totalSizeCap>${sys:TOTAL_CAP_SIZE}</totalSizeCap>
+            <fileNamePattern>${FILE_PATTERN}</fileNamePattern>
+            <maxFileSize>${FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY_DAY}</maxHistory>
+            <totalSizeCap>${TOTAL_CAP_SIZE}</totalSizeCap>
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>{sys:OUTPUT_STYLE}</pattern>
+            <pattern>${OUTPUT_STYLE}</pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>
@@ -33,14 +43,14 @@
 
     <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${sys:ERROR_FILE_PATTERN}</fileNamePattern>
-            <maxFileSize>{sys:ERROR_FILE_SIZE}</maxFileSize>
-            <maxHistory>${sys:ERROR_MAX_HISTORY_DAY}</maxHistory>
-            <totalSizeCap>${sys:ERROR_TOTAL_CAP_SIZE}</totalSizeCap>
+            <fileNamePattern>${ERROR_FILE_PATTERN}</fileNamePattern>
+            <maxFileSize>${ERROR_FILE_SIZE}</maxFileSize>
+            <maxHistory>${ERROR_MAX_HISTORY_DAY}</maxHistory>
+            <totalSizeCap>${ERROR_TOTAL_CAP_SIZE}</totalSizeCap>
         </rollingPolicy>
         <append>true</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>{sys:OUTPUT_STYLE}</pattern>
+            <pattern>${OUTPUT_STYLE}</pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>
@@ -48,7 +58,7 @@
 
     <appender name="ASYNC_WRITE_FILE" class="ch.qos.logback.classic.AsyncAppender">
         <discardingThreshold>0</discardingThreshold>
-        <queueSize>${sys:QUEUE_SIEZ}</queueSize>
+        <queueSize>${QUEUE_SIEZ}</queueSize>
         <appender-ref ref="INFO_FILE"/>
     </appender>
 
@@ -58,4 +68,5 @@
         <appender-ref ref="ASYNC_WRITE_FILE" level="info"/>
         <appender-ref ref="ERROR_FILE" level="error"/>
     </root>
+
 </configuration>
