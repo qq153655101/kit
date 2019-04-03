@@ -11,7 +11,7 @@
         <module>peng-log</module>
         <module>peng-common-parent</module>
         <module>peng-common</module>
-        <module>peng-exception</module>
+        <module>peng-web</module>
     </modules>
     <packaging>pom</packaging>
     <name>peng</name>
