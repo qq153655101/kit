@@ -19,7 +19,7 @@ public class WebLogInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,Object handler) throws Exception{
         log.info("-----------------------------start:{}---------------------------------",MDCTraceUtil.INSTANCE.getTraceId());
         request.setAttribute(EXECUT_TIME_KEY,System.currentTimeMillis());
-        log.info("request uri:{}"+request.getRequestURI());
+        log.info("request uri:{}",request.getRequestURI());
         String queryString = request.getQueryString();
         log.info("the queryString is:"+queryString);
         response.setHeader("traceId", MDCTraceUtil.INSTANCE.getTraceId());

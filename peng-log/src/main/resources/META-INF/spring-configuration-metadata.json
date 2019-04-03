@@ -1,3 +1,77 @@
 {
-
+  "hints": [],
+  "groups":[
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.properties",
+      "type":"om.peng.log.LogProperties"
+    }
+  ],
+  "properties":[
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.logName",
+      "defaultValue":"pengLog",
+      "type":"java.lang.String"
+    },
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.logPath",
+      "defaultValue":"/data/peng/log/",
+      "type":"java.lang.String"
+    },
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.showSql",
+      "defaultValue":false,
+      "type":"java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.queueSize",
+      "defaultValue":"256",
+      "type":"java.lang.String"
+    },
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.fileSize",
+      "defaultValue":"100MB",
+      "type":"java.lang.String"
+    },
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.holdTime",
+      "defaultValue":"30",
+      "type":"java.lang.String"
+    },
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.totalSizeCap",
+      "defaultValue":"10GB",
+      "type":"java.lang.String"
+    },
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.errorFileSize",
+      "defaultValue":"100MB",
+      "type":"java.lang.String"
+    },
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.errorHoldTime",
+      "defaultValue":"60",
+      "type":"java.lang.String"
+    },
+    {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.errorTotalSizeCap",
+      "defaultValue":"5GB",
+      "type":"java.lang.String"
+    }, {
+      "sourceType": "com.peng.log.LogProperties",
+      "name": "log.logPattern",
+      "defaultValue":"%d{yyyy-MM-dd HH:mm:ss:SSS} %X{traceId} %-5level %thread %logger{36} %line %msg%n",
+      "type":"java.lang.String"
+    }
+  ]
 }

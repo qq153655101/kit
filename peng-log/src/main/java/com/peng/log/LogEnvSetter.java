@@ -31,7 +31,7 @@ public class LogEnvSetter extends AbstractPengEnvPostProcessor {
 
     private void setLogProperties(ConfigurableEnvironment environment, SpringApplication application,String logbackConfigPath){
         Binder binder = Binder.get(environment);
-        BindResult<LogProperties> bindLogProperty = binder.bind("peng.properties.log", Bindable.of(LogProperties.class));
+        BindResult<LogProperties> bindLogProperty = binder.bind("log", Bindable.of(LogProperties.class));
         LogProperties logProperties;
         if (bindLogProperty.isBound())
             logProperties = bindLogProperty.get();
