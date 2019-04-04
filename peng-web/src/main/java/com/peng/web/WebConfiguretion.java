@@ -1,5 +1,8 @@
 package com.peng.web;
 
+import com.peng.common.spring.MetadataReaderProducer;
+import com.peng.web.exception.ErrorCodeMsg;
+import com.peng.web.exception.ErrorCodeMsgBeanDefinitionProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -32,5 +35,15 @@ public class WebConfiguretion {
         bean.setName("corsFilter");
         bean.setOrder(cors.getOrder());
         return bean;
+    }
+
+    @Bean
+    public static MetadataReaderProducer metadataReaderProducer(){
+        return new MetadataReaderProducer();
+    }
+
+    @Bean
+    public static ErrorCodeMsgBeanDefinitionProcessor codeMsgBeanDefinitionProcessor(MetadataReaderProducer metadataReaderProducer){
+        return new ErrorCodeMsgBeanDefinitionProcessor(metadataReaderProducer, ErrorCodeMsg.class);
     }
 }
