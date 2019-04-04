@@ -1,6 +1,6 @@
 package com.peng.web.exception.handler;
 
-import com.peng.web.exception.ErrorResult;
+import com.peng.web.exception.Result;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MiddlewareExceptionHandler implements ExceptionHandler {
     @Override
-    public ErrorResult handleException(HttpServletRequest res, HttpServletResponse resp, Throwable e,Throwable mostSpecificCause) {
+    public Result handleException(HttpServletRequest res, HttpServletResponse resp, Throwable e, Throwable mostSpecificCause) {
         return null;
     }
 }

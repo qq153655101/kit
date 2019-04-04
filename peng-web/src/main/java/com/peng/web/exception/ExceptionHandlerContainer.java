@@ -24,18 +24,18 @@ public class ExceptionHandlerContainer {
     public void  initSortExceptionHadndler(){
         AnnotationAwareOrderComparator.sort(handlers);
     }
-    public ErrorResult handleException(HttpServletRequest res, HttpServletResponse resp, Throwable e){
-        ErrorResult result = null;
+    public Result handleException(HttpServletRequest res, HttpServletResponse resp, Throwable e){
+        Result result = null;
         Throwable mostSpecificCause = NestedExceptionUtils.getMostSpecificCause(e);
         for (ExceptionHandler handler:handlers) {
-            ErrorResult errorResult = handler.handleException(res, resp, e, mostSpecificCause);
+            Result errorResult = handler.handleException(res, resp, e, mostSpecificCause);
             if (errorResult != null){
                 result = errorResult;
                 break;
             }
         }
         if (result ==null)
-            result = ErrorResult.builder().message("").build();
+            result = Result.builder().message("").build();
         return result;
     }
 }

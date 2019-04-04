@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
  */
 @Data
 @Builder
-public class ErrorResult<T> {
+public class Result<T> {
     private HttpStatus status;
     private Integer code;
     private String message;

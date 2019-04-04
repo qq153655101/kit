@@ -1,7 +1,7 @@
 package com.peng.web;
 
 import com.peng.kit.common.MDCTraceUtil;
-import com.peng.web.exception.ErrorResult;
+import com.peng.web.exception.Result;
 import com.peng.web.exception.ExceptionHandlerContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
 
     @ResponseBody
     @ExceptionHandler(Throwable.class)
-    public ErrorResult handleException(HttpServletRequest res, HttpServletResponse resp, Throwable e){
-        ErrorResult result = handlerContainer.handleException(res,resp,e);
+    public Result handleException(HttpServletRequest res, HttpServletResponse resp, Throwable e){
+        Result result = handlerContainer.handleException(res,resp,e);
         if (result.getCode() == null ){
 
         }
