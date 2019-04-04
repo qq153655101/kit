@@ -8,10 +8,18 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProce
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
+import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.core.type.ClassMetadata;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.Set;
 
 /**
+ * 扫描注解找到有ErrorCodeMsg注解的enum，根据注解和enum初始化异常消息容器
  * created by guoqingpeng on 2019/4/4
  */
 public abstract   class AbstractErrorCodeMsgBeanDefinitionProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware, Ordered {
@@ -29,8 +37,52 @@ public abstract   class AbstractErrorCodeMsgBeanDefinitionProcessor implements B
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         String annoName = c.getName();
         metadataReaderProducer.prcessMetadataReader(metadataReader -> {
+            //ErrorResultRegistry.addCodeMsg(110,"");
+            AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();
+            Map<String, Object> annotationAttributes = annotationMetadata.getAnnotationAttributes(annoName);
+            if (CollectionUtils.isEmpty(annotationAttributes))
+                return ;
+            ClassMetadata classMetadata = metadataReader.getClassMetadata();
+            if (!classMetadata.isFinal() || !"java.lang.Enum".equals(classMetadata.getSuperClassName()))
+                return ;
+            String type = (String)annotationAttributes.get("type");
+            if ("enum".equals(type)){
+                String getCode = (String)annotationAttributes.get("getCode");
+                String getMsg = (String)annotationAttributes.get("getMsg");
+                setErrorCodeMsgByEnum(classMetadata.getClassName(),getCode,getMsg);
+            }else if("properties".equals(type)){
+                setErrorCodeMsgByProperty();
+            }else if("both".equals(type)){
+                String getCode = (String)annotationAttributes.get("getCode");
+                String getMsg = (String)annotationAttributes.get("getMsg");
+                setErrorCodeMsgByEnum(classMetadata.getClassName(),getCode,getMsg);
+                setErrorCodeMsgByProperty();
+            }else {
+                setErrorCodeMsgByProperty();
+            }
 
         });
+    }
+
+    private void setErrorCodeMsgByEnum(String classNmae,String getCodeMethod,String getMsgMethod){
+        try {
+            Class<Enum> c = (Class<Enum>) ClassUtils.forName(classNmae,ClassUtils.getDefaultClassLoader());
+            Method codeMethod = c.getMethod(getCodeMethod);
+            Method msgMethod = c.getMethod(getMsgMethod);
+            Enum[] enumConstants = c.getEnumConstants();
+            for (Enum e:enumConstants){
+                ErrorResultRegistry.addCodeMsg((Integer) codeMethod.invoke(e),(String) msgMethod.invoke(e));
+            }
+        }catch (Exception e){
+
+        }
+    }
+
+    private void setErrorCodeMsgByProperty(){
+        Set<Map.Entry<String, String>> entries = ExceptionPropertyListener.map.entrySet();
+        for (String key : ExceptionPropertyListener.map.keySet()){
+            ErrorResultRegistry.addCodeMsg(Integer.valueOf(key), ExceptionPropertyListener.map.get(key));
+        }
     }
 
     @Override

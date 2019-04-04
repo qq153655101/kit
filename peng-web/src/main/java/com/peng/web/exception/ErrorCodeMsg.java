@@ -18,6 +18,6 @@ public @interface ErrorCodeMsg {
 
     String getMsgMethod() default "getMsg";
 
-    String propertySource() default "classpath:exception.properties";
+    String includePropertySource() default "classpath:exception.properties";
 
 }
