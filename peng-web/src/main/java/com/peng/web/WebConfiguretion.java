@@ -2,9 +2,8 @@ package com.peng.web;
 
 import com.peng.common.spring.MetadataReaderProducer;
 import com.peng.web.exception.ErrorCodeMsg;
-import com.peng.web.exception.ErrorCodeMsgBeanDefinitionProcessor;
+import com.peng.web.exception.ErrorCodeMsgBuliderProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +42,7 @@ public class WebConfiguretion {
     }
 
     @Bean
-    public static ErrorCodeMsgBeanDefinitionProcessor codeMsgBeanDefinitionProcessor(MetadataReaderProducer metadataReaderProducer){
-        return new ErrorCodeMsgBeanDefinitionProcessor(metadataReaderProducer, ErrorCodeMsg.class);
+    public static ErrorCodeMsgBuliderProcessor codeMsgBeanDefinitionProcessor(MetadataReaderProducer metadataReaderProducer){
+        return new ErrorCodeMsgBuliderProcessor(metadataReaderProducer, ErrorCodeMsg.class);
     }
 }

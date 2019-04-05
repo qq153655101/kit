@@ -4,20 +4,24 @@ import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * created by guoqingpeng on 2019/3/20
  */
-public class SpringUtils implements ApplicationContextAware {
+public class SpringUtils implements ApplicationContextAware , EnvironmentAware {
 
-    private static ApplicationContext applicationContext;
+    public static ApplicationContext applicationContext;
+
+    public static Environment environment;
+
+    public static List<String> basePackage;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -53,6 +57,24 @@ public class SpringUtils implements ApplicationContextAware {
         putEnvProperty(environment,key,value,false);
     }
 
+    @Override
+    public void setEnvironment(Environment environment) {
+        SpringUtils.environment = environment;
+    }
+
+
+
+
+
+    public static List<String> getBasePackage() {
+        return basePackage;
+    }
+
+    public static void setBasePackage(List<String> basePackage) {
+        SpringUtils.basePackage = basePackage;
+    }
+
+
     public static void setEnvpropertyIfAbsent(ConfigurableEnvironment environment,String key,Object value){
         putEnvProperty(environment,key,value,true);
     }
@@ -80,4 +102,6 @@ public class SpringUtils implements ApplicationContextAware {
         }
         return source;
     }
+
+
 }

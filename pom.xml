@@ -44,6 +44,11 @@
                 <artifactId>peng-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.peng</groupId>
+                <artifactId>peng-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

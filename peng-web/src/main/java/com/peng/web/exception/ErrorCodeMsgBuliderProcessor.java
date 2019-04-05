@@ -22,13 +22,13 @@ import java.util.Set;
  * 扫描注解找到有ErrorCodeMsg注解的enum，根据注解和enum初始化异常消息容器
  * created by guoqingpeng on 2019/4/4
  */
-public class ErrorCodeMsgBeanDefinitionProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware, Ordered {
+public class ErrorCodeMsgBuliderProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware, Ordered {
 
     private final MetadataReaderProducer metadataReaderProducer;
 
     private final Class<? extends Annotation> c;
 
-    public ErrorCodeMsgBeanDefinitionProcessor(MetadataReaderProducer metadataReaderProducer, Class<? extends Annotation> c){
+    public ErrorCodeMsgBuliderProcessor(MetadataReaderProducer metadataReaderProducer, Class<? extends Annotation> c){
         this.metadataReaderProducer = metadataReaderProducer;
         this.c = c;
     }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class HttpExceptionHandler implements ExceptionHandler {
     @Override
     public Result handleException(HttpServletRequest res, HttpServletResponse resp, Throwable e, Throwable mostSpecificCause) {
+        //todo http异常处理
         return null;
     }
 }

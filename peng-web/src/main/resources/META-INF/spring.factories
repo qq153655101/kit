@@ -1,2 +1,3 @@
 org.springframework.context.ApplicationListener=\com.peng.web.exception.ExceptionPropertyListener
+org.springframework.boot.SpringApplicationRunListener=\com.peng.web.exception.BasePackageSetterListener
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\com.peng.web.WebConfiguretion

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MiddlewareExceptionHandler implements ExceptionHandler {
     @Override
     public Result handleException(HttpServletRequest res, HttpServletResponse resp, Throwable e, Throwable mostSpecificCause) {
+        //todo 中间件异常处理，如Redis、mq、springcloud等
         return null;
     }
 }
