@@ -29,7 +29,7 @@ public class WebConfiguretion {
     public FilterRegistrationBean corsFilter(WebProperties webProperties){
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         WebProperties.Cors cors = webProperties.getCors();
-        if (cors.getAllowedOrigins()==null || cors.getAllowedHeaders()==null)
+        if (cors.getAllowedOrigins() == null)
             cors.applyPermitDefaultValues();
         source.registerCorsConfiguration("/**",cors);
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
