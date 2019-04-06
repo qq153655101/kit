@@ -12,12 +12,8 @@ public @interface ErrorCodeMsg {
 
     String name();
 
-    String type() default "properties"; //properties,enum,both
-
     String getCodeMethod() default "getCode";
 
     String getMsgMethod() default "getMsg";
-
-    String includePropertySource() default "classpath:exception.properties";
 
 }

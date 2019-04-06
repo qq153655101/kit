@@ -3,6 +3,7 @@ package com.peng.web;
 import com.peng.kit.common.MDCTraceUtil;
 import com.peng.web.exception.Result;
 import com.peng.web.exception.ExceptionHandlerContainer;
+import com.peng.web.exception.carrier.VerifyException;
 import com.peng.web.exception.handler.AppExceptionHandler;
 import com.peng.web.exception.handler.HttpExceptionHandler;
 import com.peng.web.exception.handler.MiddlewareExceptionHandler;
@@ -29,6 +30,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(Throwable.class)
     public Result handleException(HttpServletRequest res, HttpServletResponse resp, Throwable e){
+        log.error("server occur error:{}",e);
         Result result = handlerContainer.handleException(res,resp,e);
         if (result.getCode() == null ){
 
@@ -58,6 +60,11 @@ public class GlobalExceptionHandler {
     @Bean
     public MiddlewareExceptionHandler middlewareExceptionHandler(){
         return new MiddlewareExceptionHandler();
+    }
+
+    @Bean
+    public ExceptionHandlerContainer exceptionHandlerContainer(){
+        return new ExceptionHandlerContainer();
     }
 
 }

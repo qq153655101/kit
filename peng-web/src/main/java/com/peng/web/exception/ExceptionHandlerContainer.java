@@ -24,6 +24,7 @@ public class ExceptionHandlerContainer {
     public void  initSortExceptionHadndler(){
         AnnotationAwareOrderComparator.sort(handlers);
     }
+
     public Result handleException(HttpServletRequest res, HttpServletResponse resp, Throwable e){
         Result result = null;
         Throwable mostSpecificCause = NestedExceptionUtils.getMostSpecificCause(e);

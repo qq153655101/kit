@@ -16,6 +16,7 @@ import org.springframework.util.ClassUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Consumer;
@@ -55,6 +56,7 @@ public class MetadataReaderProducer implements ApplicationListener<ContextRefres
             String packagePath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX
                     + ClassUtils.convertClassNameToResourcePath(applicationContext.getEnvironment().resolveRequiredPlaceholders(basePackage))
                     +"/**/*.class";
+            resources.addAll(Arrays.asList(resourcePatternResolver.getResources(packagePath)));
         }
         return resources;
     }

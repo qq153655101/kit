@@ -7,7 +7,7 @@ import org.springframework.util.ObjectUtils;
  * 不能放在util包，防止相互依赖
  * created by guoqingpeng on 2019/4/5
  */
-public class VerifyUtil {
+public final class VerifyUtil {
 
     public static void checkArguments(boolean expression,int code){
         if (!expression)

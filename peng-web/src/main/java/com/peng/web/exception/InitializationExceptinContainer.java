@@ -5,7 +5,7 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
 /**
- * 使用ErrorCodeMsgBeanDefinitionProcessor初始化异常消息容器
+ * 使用ErrorCodeMsgBuliderProcessor初始化异常消息容器
  * created by guoqingpeng on 2019/4/3
  */
 @Deprecated

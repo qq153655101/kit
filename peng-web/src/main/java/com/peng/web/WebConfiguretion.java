@@ -3,6 +3,8 @@ package com.peng.web;
 import com.peng.common.spring.MetadataReaderProducer;
 import com.peng.web.exception.ErrorCodeMsg;
 import com.peng.web.exception.ErrorCodeMsgBuliderProcessor;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -19,6 +21,7 @@ import java.util.Collections;
  */
 @Configuration
 @EnableConfigurationProperties(WebProperties.class)
+@ImportAutoConfiguration(GlobalExceptionHandler.class)
 public class WebConfiguretion {
 
     @Bean

@@ -1,6 +1,7 @@
 package com.peng.web.exception;
 
 import com.peng.common.spring.MetadataReaderProducer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -22,6 +23,7 @@ import java.util.Set;
  * 扫描注解找到有ErrorCodeMsg注解的enum，根据注解和enum初始化异常消息容器
  * created by guoqingpeng on 2019/4/4
  */
+@Slf4j
 public class ErrorCodeMsgBuliderProcessor implements BeanDefinitionRegistryPostProcessor, EnvironmentAware, Ordered {
 
     private final MetadataReaderProducer metadataReaderProducer;
@@ -35,33 +37,24 @@ public class ErrorCodeMsgBuliderProcessor implements BeanDefinitionRegistryPostP
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
+        String enumClassNmae = environment.getProperty("web.exception.enum-class-name");
+        if (enumClassNmae == null )
+            return ;
         String annoName = c.getName();
         metadataReaderProducer.prcessMetadataReader(metadataReader -> {
-            //ErrorResultRegistry.addCodeMsg(110,"");
             AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();
             Map<String, Object> annotationAttributes = annotationMetadata.getAnnotationAttributes(annoName);
             if (CollectionUtils.isEmpty(annotationAttributes))
                 return ;
             ClassMetadata classMetadata = metadataReader.getClassMetadata();
-            if (!classMetadata.isFinal() || !"java.lang.Enum".equals(classMetadata.getSuperClassName()))
+            if (!classMetadata.isFinal() || !"java.lang.Enum".equals(classMetadata.getSuperClassName())
+                    || !classMetadata.getClassName().equals(enumClassNmae))
                 return ;
-            String type = (String)annotationAttributes.get("type");
-            if ("enum".equals(type)){
-                String getCode = (String)annotationAttributes.get("getCode");
-                String getMsg = (String)annotationAttributes.get("getMsg");
-                setErrorCodeMsgByEnum(classMetadata.getClassName(),getCode,getMsg);
-            }else if("properties".equals(type)){
-                setErrorCodeMsgByProperty();
-            }else if("both".equals(type)){
-                String getCode = (String)annotationAttributes.get("getCode");
-                String getMsg = (String)annotationAttributes.get("getMsg");
-                setErrorCodeMsgByEnum(classMetadata.getClassName(),getCode,getMsg);
-                setErrorCodeMsgByProperty();
-            }else {
-                setErrorCodeMsgByProperty();
-            }
-
+            String getCode = (String)annotationAttributes.get("getCodeMethod");
+            String getMsg = (String)annotationAttributes.get("getMsgMethod");
+            setErrorCodeMsgByEnum(classMetadata.getClassName(),getCode,getMsg);
         });
+
     }
 
     private void setErrorCodeMsgByEnum(String classNmae,String getCodeMethod,String getMsgMethod){
@@ -74,16 +67,10 @@ public class ErrorCodeMsgBuliderProcessor implements BeanDefinitionRegistryPostP
                 ErrorResultRegistry.addCodeMsg((Integer) codeMethod.invoke(e),(String) msgMethod.invoke(e));
             }
         }catch (Exception e){
-
+            log.error("ErrorCodeMsgBuliderProcessor occur error:{}",e);
         }
     }
 
-    private void setErrorCodeMsgByProperty(){
-        Set<Map.Entry<String, String>> entries = ExceptionPropertyListener.map.entrySet();
-        for (String key : ExceptionPropertyListener.map.keySet()){
-            ErrorResultRegistry.addCodeMsg(Integer.valueOf(key), ExceptionPropertyListener.map.get(key));
-        }
-    }
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {

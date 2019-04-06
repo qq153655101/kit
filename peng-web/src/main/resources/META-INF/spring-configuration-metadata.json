@@ -1,0 +1,80 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.peng.web.WebProperties",
+      "name": "web",
+      "type": "com.peng.web.WebProperties"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties",
+      "name": "web.cors",
+      "sourceMethod": "getCors()",
+      "type": "com.peng.web.WebProperties$Cors"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties",
+      "name": "web.exception",
+      "sourceMethod": "getException()",
+      "type": "com.peng.web.WebProperties$Exception"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.peng.web.WebProperties$Cors",
+      "name": "web.cors.allow-credentials",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties$Cors",
+      "name": "web.cors.allowed-headers",
+      "type": "java.util.List<java.lang.String>"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties$Cors",
+      "name": "web.cors.allowed-methods",
+      "type": "java.util.List<java.lang.String>"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties$Cors",
+      "name": "web.cors.allowed-origins",
+      "type": "java.util.List<java.lang.String>"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties$Cors",
+      "defaultValue": false,
+      "name": "web.cors.enable",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties$Cors",
+      "name": "web.cors.exposed-headers",
+      "type": "java.util.List<java.lang.String>"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties$Cors",
+      "name": "web.cors.max-age",
+      "type": "java.lang.Long"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties$Cors",
+      "name": "web.cors.order",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties$Exception",
+      "name": "web.exception.enum-class-name",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties$Exception",
+      "name": "web.exception.error-code-source",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.peng.web.WebProperties$Exception",
+      "name": "web.exception.property-path",
+      "type": "java.lang.String"
+    }
+  ]
+}

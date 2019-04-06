@@ -1,77 +1,76 @@
 {
   "hints": [],
-  "groups":[
+  "groups": [
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.properties",
-      "type":"om.peng.log.LogProperties"
+      "name": "log",
+      "type": "com.peng.log.LogProperties"
     }
   ],
-  "properties":[
+  "properties": [
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.logName",
-      "defaultValue":"pengLog",
-      "type":"java.lang.String"
+      "defaultValue": "100MB",
+      "name": "log.error-file-size",
+      "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.logPath",
-      "defaultValue":"/data/peng/log/",
-      "type":"java.lang.String"
+      "defaultValue": "60",
+      "name": "log.error-hold-time",
+      "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.showSql",
-      "defaultValue":false,
-      "type":"java.lang.Boolean"
+      "defaultValue": "5GB",
+      "name": "log.error-total-size-cap",
+      "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.queueSize",
-      "defaultValue":"256",
-      "type":"java.lang.String"
+      "defaultValue": "100MB",
+      "name": "log.file-size",
+      "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.fileSize",
-      "defaultValue":"100MB",
-      "type":"java.lang.String"
+      "defaultValue": "30",
+      "name": "log.hold-time",
+      "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.holdTime",
-      "defaultValue":"30",
-      "type":"java.lang.String"
+      "name": "log.log-name",
+      "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.totalSizeCap",
-      "defaultValue":"10GB",
-      "type":"java.lang.String"
+      "name": "log.log-path",
+      "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.errorFileSize",
-      "defaultValue":"100MB",
-      "type":"java.lang.String"
+      "defaultValue": "%d{yyyy-MM-dd HH:mm:ss:SSS} %X{traceId} %-5level %thread %logger{36} %line %msg%n",
+      "name": "log.log-pattern",
+      "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.errorHoldTime",
-      "defaultValue":"60",
-      "type":"java.lang.String"
+      "defaultValue": "256",
+      "name": "log.queue-size",
+      "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.errorTotalSizeCap",
-      "defaultValue":"5GB",
-      "type":"java.lang.String"
-    }, {
+      "defaultValue": false,
+      "name": "log.show-sql",
+      "type": "java.lang.Boolean"
+    },
+    {
       "sourceType": "com.peng.log.LogProperties",
-      "name": "log.logPattern",
-      "defaultValue":"%d{yyyy-MM-dd HH:mm:ss:SSS} %X{traceId} %-5level %thread %logger{36} %line %msg%n",
-      "type":"java.lang.String"
+      "defaultValue": "10GB",
+      "name": "log.total-size-cap",
+      "type": "java.lang.String"
     }
   ]
 }
