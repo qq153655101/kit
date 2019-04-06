@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ErrorResultRegistry {
 
-    private static final ConcurrentHashMap<Integer,String> REGISTRY = new ConcurrentHashMap<>();
+    public static final ConcurrentHashMap<Integer,String> REGISTRY = new ConcurrentHashMap<>();
 
     public static void addCodeMsg(Integer code,String msg){
         REGISTRY.put(code,msg);
