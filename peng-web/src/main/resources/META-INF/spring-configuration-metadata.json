@@ -64,16 +64,19 @@
     {
       "sourceType": "com.peng.web.WebProperties$Exception",
       "name": "web.exception.enum-class-name",
+      "defaultValue":"ccom.peng.common.domain.ErrorCodeMsgEnum",
       "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.web.WebProperties$Exception",
       "name": "web.exception.error-code-source",
+      "defaultValue":"properties",
       "type": "java.lang.String"
     },
     {
       "sourceType": "com.peng.web.WebProperties$Exception",
       "name": "web.exception.property-path",
+      "defaultValue":"exception.properties",
       "type": "java.lang.String"
     }
   ]

@@ -45,6 +45,7 @@ public class WebConfiguretion {
     }
 
     @Bean
+    @ConditionalOnExpression("'enum'.equals('${web.exception.error-code-source}') || 'both'.equals('${web.exception.error-code-source}') ")
     public static ErrorCodeMsgBuliderProcessor codeMsgBeanDefinitionProcessor(MetadataReaderProducer metadataReaderProducer){
         return new ErrorCodeMsgBuliderProcessor(metadataReaderProducer, ErrorCodeMsg.class);
     }
